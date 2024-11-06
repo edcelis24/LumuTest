@@ -1,19 +1,66 @@
 plugins {
     id 'java'
+    id 'idea'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.1.3'
 }
-
-group = 'org.example'
-version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    jcenter()
+}
+
+group = 'co.com.certification.wordcounter'
+description = 'Automatización de pruebas para la pagina Wordcounter'
+version = '1.0'
+
+ext {
+    lombok = '1.18.24'
+    serenity_version = '4.1.13'
+    assertj_core_version = '3.23.1'
+    logback_classic_version = '1.5.7'
+    junit_platform_suite_version = '1.10.2'
+    junit_jupiter_engine_version = '5.10.2'
+    junit_vintage_engine_version = '5.10.2'
+    junit_platform_launcher_version = '1.10.2'
+    cucumber_junit_platform_engine_version = '7.16.1'
+    bonnie_webdriver_manager = '5.5.3'
+    unitils_version="3.4.2"
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation "net.serenity-bdd:serenity-ensure:${serenity_version}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenity_version}",
+            "ch.qos.logback:logback-classic:${logback_classic_version}",
+            "org.projectlombok:lombok:${lombok}"
+
+    annotationProcessor "org.projectlombok:lombok:${lombok}"
+    testImplementation 'org.apache.commons:commons-lang3:3.13.0'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    implementation group: "org.unitils", name: "unitils-core", version: "${unitils_version}"
+    testImplementation "net.serenity-bdd:serenity-core:${serenity_version}",
+            "net.serenity-bdd:serenity-cucumber:${serenity_version}",
+            "net.serenity-bdd:serenity-screenplay:${serenity_version}",
+            "org.junit.platform:junit-platform-launcher:${junit_platform_launcher_version}",
+            "io.cucumber:cucumber-junit-platform-engine:${cucumber_junit_platform_engine_version}",
+            "org.junit.platform:junit-platform-suite:${junit_platform_suite_version}",
+            "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter_engine_version}",
+            "org.junit.vintage:junit-vintage-engine:${junit_vintage_engine_version}",
+            "org.assertj:assertj-core:${assertj_core_version}",
+            "io.github.bonigarcia:webdrivermanager:${bonnie_webdriver_manager}"
+}
+
+serenity {
+    testRoot = 'co.com.certification.wordcounter'
+    requirementsDir = 'resources/features'
 }
 
 test {
     useJUnitPlatform()
+    systemProperties = System.getProperties()
 }
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test.finalizedBy(aggregate)
