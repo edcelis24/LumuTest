@@ -9,7 +9,14 @@ Feature:  Validate word, character and keyword counts
   Background:
     Given that the user opens the WordCounter page
 
-  @testLocal
-  Scenario: Word count verification
-    When he enters text in the editor
+  Scenario: Repeated words count verification
+    When he enters 150 words text in the editor
+    Then he sees the number of repeated words contained in the text
+
+  Scenario: Words count verification
+    When he enters 200 words text in the editor
     Then he sees the number of words contained in the text
+
+  Scenario: Characters count verification
+    When he enters 50 words text in the editor
+    Then he sees the number of characters contained in the text

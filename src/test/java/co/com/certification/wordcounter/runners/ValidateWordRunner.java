@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features/validate_word.feature",
         glue = "co.com.certification.wordcounter.stepdefinitions",
-        tags = "@testLocal",
         snippets = CucumberOptions.SnippetType.CAMELCASE
 )
 public class ValidateWordRunner {

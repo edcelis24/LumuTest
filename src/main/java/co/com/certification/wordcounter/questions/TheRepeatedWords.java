@@ -35,7 +35,7 @@ public class TheRepeatedWords implements Question<Boolean> {
             }
             @Override
             public String getSubject() {
-                return "the Operation Filter - Operation Filter Content is correct";
+                return "The Repeated Words - Repeated Words Content Is Validate";
             }
         };
     }
